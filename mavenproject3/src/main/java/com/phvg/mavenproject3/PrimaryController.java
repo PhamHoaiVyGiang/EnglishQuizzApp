@@ -1,7 +1,13 @@
 package com.phvg.mavenproject3;
 
 import com.phvg.utils.MyAlertSingleton;
-import com.phvg.utils.themes.ThemeStyles;
+import com.phvg.utils.MyStageSingleton;
+import com.phvg.utils.themes.DarkFactory;
+import com.phvg.utils.themes.DefaultFactory;
+import com.phvg.utils.themes.LightFactory;
+import com.phvg.utils.themes.ThemeManager;
+
+import com.phvg.utils.themes.ThemeTypes;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -13,11 +19,11 @@ import javafx.scene.control.ComboBox;
 
 
 public class PrimaryController implements Initializable{
-    @FXML private ComboBox<ThemeStyles> cbTheme;
+    @FXML private ComboBox<ThemeTypes> cbTheme;
     
 
     public void mangeQuestions( ActionEvent e){
-        MyAlertSingleton.getInstance().showMeg("[ mangeQuestions] comming soon");
+        MyStageSingleton.getInstance().showStage("questions");
     }
     public void practiceQuestions( ActionEvent e){
 
@@ -30,22 +36,10 @@ public class PrimaryController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       this.cbTheme.setItems(FXCollections.observableArrayList(ThemeStyles.values()));
+       this.cbTheme.setItems(FXCollections.observableArrayList(ThemeTypes.values()));
     }
     public void changeTheme( ActionEvent e){
-        switch(this.cbTheme.getSelectionModel().getSelectedItem()){
-            case DARK:
-                this.cbTheme.getScene().getRoot().getStylesheets().clear();
-                this.cbTheme.getScene().getRoot().getStylesheets().add(App.class.getResource("Dark.css").toExternalForm());
-                break;
-            case LIGHT:
-                this.cbTheme.getScene().getRoot().getStylesheets().clear();
-                this.cbTheme.getScene().getRoot().getStylesheets().add(App.class.getResource("Light.css").toExternalForm());
-                break;
-            default:
-                this.cbTheme.getScene().getRoot().getStylesheets().clear();
-                this.cbTheme.getScene().getRoot().getStylesheets().add(App.class.getResource("Styles.css").toExternalForm());
-        }
+        this.cbTheme.getSelectionModel().getSelectedItem().updateTheme(this.cbTheme.getScene());
     }
     
     

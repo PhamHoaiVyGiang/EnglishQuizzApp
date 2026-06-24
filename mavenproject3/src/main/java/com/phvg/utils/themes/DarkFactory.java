@@ -4,12 +4,17 @@
  */
 package com.phvg.utils.themes;
 
-import javafx.beans.DefaultProperty;
+import com.phvg.mavenproject3.App;
 
 /**
  *
  * @author admin
  */
-public enum ThemeStyles {
-    Default,DARK,LIGHT;
+public class DarkFactory extends ThemeAbstractFactory{
+
+    @Override
+    public String getStyleSheet() {
+        return App.class.getResource("Dark.css").toExternalForm();
+    }
+    
 }
