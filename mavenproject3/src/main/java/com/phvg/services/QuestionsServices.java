@@ -4,34 +4,34 @@
  */
 package com.phvg.services;
 
-import com.phvg.pojo.Category;
+import com.phvg.pojo.Questions;
 import com.phvg.utils.MyConnSingleton;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author admin
+ * @author GIANG
  */
-public class CategoryServices {
-
-    public List<Category> getCates() throws SQLException {
+public class QuestionsServices {
+    public List<Questions> getQuestions() throws SQLException {
         Connection conn = MyConnSingleton.getInstance().connect();
-        String sql = "SELECT * FROM Category";
-        Statement stm = conn.createStatement();
+        
+        String sql = "SELECT * FROM question";
+        PreparedStatement stm = conn.prepareCall(sql);
         ResultSet rs = stm.executeQuery(sql);
 
-        List<Category> cates = new ArrayList<>();
+        List<Questions> questions = new ArrayList<>();
         while (rs.next()) {
             int id = rs.getInt("id");
-            String name = rs.getString("name");
+            String content = rs.getString("content");
 
-            cates.add(new Category(id, name));
+            questions.add(new Questions.Builder().setId(id).setContent(content).build());
         }
-        return cates;
+        return questions;
     }
 }
