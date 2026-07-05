@@ -41,6 +41,7 @@ public class Questions {
 
         /**
          * @param id the id to set
+         * @return 
          */
         public Builder setId(int id) {
             this.id = id;
@@ -49,6 +50,7 @@ public class Questions {
 
         /**
          * @param content the content to set
+         * @return 
          */
         public Builder setContent(String content) {
             this.content = content;
@@ -57,6 +59,7 @@ public class Questions {
 
         /**
          * @param hint the hint to set
+         * @return 
          */
         public Builder setHint(String hint) {
             this.hint = hint;
@@ -73,6 +76,7 @@ public class Questions {
 
         /**
          * @param category the category to set
+         * @return 
          */
         public Builder setCategory(Category category) {
             this.category = category;
@@ -81,6 +85,7 @@ public class Questions {
 
         /**
          * @param level the level to set
+         * @return 
          */
         public Builder setLevel(Level level) {
             this.level = level;

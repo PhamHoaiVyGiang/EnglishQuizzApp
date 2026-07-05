@@ -27,11 +27,11 @@ public class PrimaryController implements Initializable{
     }
     public void practiceQuestions( ActionEvent e){
 
-         MyAlertSingleton.getInstance().showMeg("[practiceQuestions] comming soon");
+         MyAlertSingleton.getInstance().showMsg("[practiceQuestions] comming soon");
     }
     public void examQuestions( ActionEvent e){
 
-         MyAlertSingleton.getInstance().showMeg("[  examQuestions] comming soon");
+         MyAlertSingleton.getInstance().showMsg("[  examQuestions] comming soon");
     }
 
     @Override

@@ -19,7 +19,7 @@ public class MyConnSingleton {
     private Connection conn;
     static{
         try {
-            Class.forName("com.mysql.cj.jbdc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MyConnSingleton.class.getName()).log(Level.SEVERE, null, ex);
         }

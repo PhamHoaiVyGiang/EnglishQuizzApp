@@ -4,34 +4,35 @@
  */
 package com.phvg.services;
 
-import com.phvg.pojo.Questions;
+
+import com.phvg.pojo.Level;
 import com.phvg.utils.MyConnSingleton;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author GIANG
+ * @author admin
  */
-public class QuestionsServices {
-    public List<Questions> getQuestions() throws SQLException {
+public class LevelServices {
+
+    public List<Level> getLevels() throws SQLException {
         Connection conn = MyConnSingleton.getInstance().connect();
-        
-        String sql = "SELECT * FROM question";
-        PreparedStatement stm = conn.prepareCall(sql);
+        String sql = "SELECT * FROM level";
+        Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery(sql);
 
-        List<Questions> questions = new ArrayList<>();
+        List<Level> levels = new ArrayList<>();
         while (rs.next()) {
             int id = rs.getInt("id");
-            String content = rs.getString("content");
+            String name = rs.getString("name");
 
-            questions.add(new Questions.Builder().setId(id).setContent(content).build());
+            levels.add(new Level(id, name));
         }
-        return questions;
+        return levels;
     }
 }

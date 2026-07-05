@@ -4,7 +4,9 @@
  */
 package com.phvg.utils;
 
+import java.util.Optional;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 /**
  *
@@ -23,8 +25,13 @@ public class MyAlertSingleton {
             instance=new MyAlertSingleton();
         return instance;
     }
-    public void showMeg(String content){
+    public void showMsg(String content){
         this.alert.setContentText(content);
         this.alert.show();
+    }
+    public Optional<ButtonType> showMsg(String content,Alert.AlertType type){
+        this.alert.setContentText(content);
+        this.alert.setAlertType(type);
+        return this.alert.showAndWait();
     }
 }

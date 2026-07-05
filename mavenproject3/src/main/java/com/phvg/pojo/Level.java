@@ -9,6 +9,8 @@ package com.phvg.pojo;
  * @author GIANG
  */
 public class Level {
+
+    public static java.util.logging.Level SEVERE;
     private int id;
     private String name;
 
@@ -19,6 +21,12 @@ public class Level {
         this.id = id;
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return this.name; 
+    }
+    
 
     /**
      * @return the id

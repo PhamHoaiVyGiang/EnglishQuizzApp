@@ -14,20 +14,22 @@ import java.io.IOException;
  */
 public class App extends Application {
 
-    private static Scene scene;
+   private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"));
+        scene = new Scene(loadFXML("question"));
         stage.setScene(scene);
         stage.show();
     }
 
     @Override
     public void stop() throws Exception {
-        super.stop(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.stop(); 
+        
         MyConnSingleton.getInstance().close();
     }
+    
     
 
     static void setRoot(String fxml) throws IOException {

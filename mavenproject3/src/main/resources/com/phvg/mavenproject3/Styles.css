@@ -7,7 +7,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : admin
 */
 
-.container{
+.Container{
      -fx-background: lightblue;
     -fx-alignment:CENTER;
     -fx-spacing: 15;
@@ -25,4 +25,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-text-fill:white;
     -fx-padding: 8;
     -fx-pref-width:250;
+}
+.Input {
+    -fx-pref-width: 250;
+    -fx-padding: 10;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white; 
+}
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: darkblue; 
 }
