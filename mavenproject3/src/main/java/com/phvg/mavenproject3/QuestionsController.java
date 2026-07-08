@@ -7,6 +7,7 @@ package com.phvg.mavenproject3;
 import com.phvg.pojo.Category;
 import com.phvg.pojo.Choice;
 import com.phvg.pojo.Level;
+import com.phvg.pojo.QuestionQueryBuilder;
 import com.phvg.pojo.Questions;
 
 import com.phvg.services.CategoryServices;
@@ -87,6 +88,16 @@ public class QuestionsController implements Initializable {
         }
 
         loadTableQuestions();
+        
+        this.txtKeywords.textProperty().addListener(c->{
+            this.loadTableQuestions();
+        });
+        this.cbSearchCates.getSelectionModel().selectedItemProperty().addListener(c->{
+            this.loadTableQuestions();
+        });
+        this.cbSearchLevels.getSelectionModel().selectedItemProperty().addListener(c->{
+            this.loadTableQuestions();
+        });
     }
 
     private void loadColumns() {
@@ -144,11 +155,14 @@ public class QuestionsController implements Initializable {
     }
 
     private void loadTableQuestions() {
+        QuestionQueryBuilder query =new QuestionQueryBuilder()
+                .withCategory(this.cbSearchCates.getSelectionModel().getSelectedItem())
+                .withKeywords(this.txtKeywords.getText()).withLevel(this.cbSearchLevels.getSelectionModel().getSelectedItem());
+    
+        Configs.questionServices.setQuery(query);
         try {
 
-            this.tvQuestions.setItems(FXCollections.observableList(Configs.questionServices.getQuestions(this.txtKeywords.getText(),
-                    this.cbSearchCates.getSelectionModel().getSelectedItem(),
-                    this.cbSearchLevels.getSelectionModel().getSelectedItem())));
+            this.tvQuestions.setItems(FXCollections.observableList(Configs.questionServices.getQuestions()));
         } catch (SQLException ex) {
             Logger.getLogger(QuestionsController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

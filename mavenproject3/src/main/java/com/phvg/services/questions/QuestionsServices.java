@@ -6,6 +6,7 @@ package com.phvg.services.questions;
 
 import com.phvg.pojo.Category;
 import com.phvg.pojo.Level;
+import com.phvg.pojo.QuestionQueryBuilder;
 import com.phvg.pojo.Questions;
 import com.phvg.utils.MyConnSingleton;
 import java.sql.Connection;
@@ -19,33 +20,22 @@ import java.util.List;
  *
  * @author GIANG
  */
-public class QuestionsServices {
-      public List<Questions> getQuestions(String kw, Category cate, Level lvl) throws SQLException {
-        Connection conn = MyConnSingleton.getInstance().connect();
-       
-        String sql = "SELECT * FROM question WHERE 1=1"; // ORDER BY id DESC
-        
-        
-        List<Object> params = new ArrayList<>();
-        if (kw != null && !kw.isEmpty()) {
-            sql += " content like concat('%', ?, '%')";
-            params.add(kw);
-        }
-        
-        if (cate != null) {
-            sql += " category_id = ?";
-            params.add(cate.getId());
-        }
-        
-        if (lvl != null) {
-            sql += " level_id = ?";
-            params.add(lvl.getId());
-        }
-        
-        PreparedStatement stm = conn.prepareCall(sql);
-        for (int i = 0; i < params.size(); i++)
-            stm.setObject(i + 1, params.get(i));
-        
+public class QuestionsServices extends QuestionServiceBase{
+
+    private QuestionQueryBuilder query;
+
+    public QuestionsServices() {
+    }
+
+    public QuestionsServices(QuestionQueryBuilder query) {
+        this.query = query;
+    }
+
+   @Override
+    public List<Questions> getQuestions() throws SQLException {
+
+        PreparedStatement stm = this.getQuery().build();
+
         ResultSet rs = stm.executeQuery();
 
         List<Questions> questions = new ArrayList<>();
@@ -58,4 +48,20 @@ public class QuestionsServices {
 
         return questions;
     }
+
+    /**
+     * @return the query
+     */
+    public QuestionQueryBuilder getQuery() {
+        return query;
+    }
+
+    /**
+     * @param query the query to set
+     */
+    public void setQuery(QuestionQueryBuilder query) {
+        this.query = query;
+    }
+
+    
 }
