@@ -7,6 +7,7 @@ package com.phvg.services;
 import com.phvg.pojo.Category;
 import com.phvg.utils.MyConnSingleton;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,7 +23,7 @@ public class CategoryServices {
     public List<Category> getCates() throws SQLException {
         Connection conn = MyConnSingleton.getInstance().connect();
         String sql = "SELECT * FROM Category";
-        Statement stm = conn.createStatement();
+        PreparedStatement stm =conn.prepareCall(sql);
         ResultSet rs = stm.executeQuery(sql);
 
         List<Category> cates = new ArrayList<>();

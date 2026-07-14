@@ -34,7 +34,7 @@ public class QuestionsServices extends QuestionServiceBase{
    @Override
     public List<Questions> getQuestions() throws SQLException {
 
-        PreparedStatement stm = this.getQuery().build();
+        PreparedStatement stm = this.query.build();
 
         ResultSet rs = stm.executeQuery();
 

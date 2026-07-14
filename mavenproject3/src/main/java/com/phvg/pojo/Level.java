@@ -10,7 +10,6 @@ package com.phvg.pojo;
  */
 public class Level {
 
-    public static java.util.logging.Level SEVERE;
     private int id;
     private String name;
 

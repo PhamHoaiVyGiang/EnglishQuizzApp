@@ -24,8 +24,8 @@ public class ChoiceServices {
          Connection conn = MyConnSingleton.getInstance().connect();
         String sql = "SELECT * FROM choice WHERE question_id=? ";
         PreparedStatement stm =conn.prepareCall(sql);
-        stm.setInt()
-        ResultSet rs = stm.executeQuery(sql);
+        stm.setInt(1,questionId);
+        ResultSet rs = stm.executeQuery();
 
         List<Choice> choices = new ArrayList<>();
         while (rs.next()) {

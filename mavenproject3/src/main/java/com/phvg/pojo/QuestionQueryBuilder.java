@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -53,21 +53,22 @@ public class QuestionQueryBuilder {
        return this;
    }
    public QuestionQueryBuilder setLimit(int limit){
-       if (this.sql.toString().toLowerCase().contains(sql)==false) {
-           this.sql.append(" LIMIT ? ");
+       if (this.sql.toString().toLowerCase().contains("limit")==false) {
+           this.sql.append(" LIMIT ?");
            this.params.add(limit);
        }
        return this;
    }
+   
    public QuestionQueryBuilder setLimit(String limit){
         this.setLimit(Integer.parseInt(limit));
         return this;
    }
    
     public PreparedStatement build() throws SQLException{
-        PreparedStatement stm = MyConnSingleton.getInstance().connect().
-                prepareCall(String.format(this.sql.toString(),this.where.toString(), this.orderBy));
-         for (int i = 0; i < params.size(); i++)
+        String s=String.format(this.sql.toString(),this.where.toString(), this.orderBy);
+        PreparedStatement stm = MyConnSingleton.getInstance().connect().prepareCall(s);
+         for (int i = 0; i < this.params.size(); i++)
             stm.setObject(i + 1, params.get(i));
          
          return stm;
