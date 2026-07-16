@@ -2,17 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.phvg.services.questions;
+package com.phvg.services.exam;
 
-import com.phvg.pojo.Choice;
 import com.phvg.pojo.Questions;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
  * @author admin
  */
-public interface QuestionServiceBase {
-    List<Questions> list() throws SQLException ;
+public abstract class ExamStrategy {
+    public abstract List<Questions> getQuestions();
 }

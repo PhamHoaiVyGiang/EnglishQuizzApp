@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="736.0" styleClass="Container" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.phvg.mavenproject3.ExamController">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="LUYEN THI" />
+      <HBox prefHeight="62.0" prefWidth="600.0" styleClass="Container">
+         <children>
+            <ComboBox fx:id="cbExamTypes" prefWidth="150.0" />
+            <TextField fx:id="txtNum" />
+            <Button mnemonicParsing="false" onAction="#start" text="Bat dau" />
+         </children>
+      </HBox>
+      <ListView fx:id="lvlQuestions" prefHeight="304.0" prefWidth="716.0" />
+      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Container">
+         <children>
+            <Button mnemonicParsing="false" style="-fx-background-color: red;" styleClass="Button" text="Cham diem" />
+            <Button mnemonicParsing="false" styleClass="Button" text="Luu de thi" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

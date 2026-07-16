@@ -8,6 +8,7 @@ import com.phvg.pojo.Category;
 import com.phvg.pojo.Level;
 import com.phvg.pojo.QuestionQueryBuilder;
 import com.phvg.pojo.Questions;
+import com.phvg.services.QueryServiceBase;
 import com.phvg.utils.MyConnSingleton;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ import java.util.List;
  *
  * @author GIANG
  */
-public class QuestionsServices extends QuestionServiceBase{
+public class QuestionsServices extends QueryServiceBase<Questions> implements  QuestionServiceBase{
 
     private QuestionQueryBuilder query;
 
@@ -30,24 +31,25 @@ public class QuestionsServices extends QuestionServiceBase{
     public QuestionsServices(QuestionQueryBuilder query) {
         this.query = query;
     }
+    
 
-   @Override
-    public List<Questions> getQuestions() throws SQLException {
-
-        PreparedStatement stm = this.query.build();
-
-        ResultSet rs = stm.executeQuery();
-
-        List<Questions> questions = new ArrayList<>();
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String content = rs.getString("content");
-
-            questions.add(new Questions.Builder().setId(id).setContent(content).build());
-        }
-
-        return questions;
-    }
+//   @Override
+//    public List<Questions> list() throws SQLException {
+//
+//        PreparedStatement stm = this.query.build();
+//
+//        ResultSet rs = stm.executeQuery();
+//
+//        List<Questions> questions = new ArrayList<>();
+//        while (rs.next()) {
+//            int id = rs.getInt("id");
+//            String content = rs.getString("content");
+//
+//            questions.add(new Questions.Builder().setId(id).setContent(content).build());
+//        }
+//
+//        return questions;
+//    }
 
     /**
      * @return the query
@@ -61,6 +63,16 @@ public class QuestionsServices extends QuestionServiceBase{
      */
     public void setQuery(QuestionQueryBuilder query) {
         this.query = query;
+    }
+
+    @Override
+    public PreparedStatement getStm() throws SQLException {
+      return this.query.build(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Questions getObject(ResultSet rs) throws SQLException {
+        return (new Questions.Builder().setId(rs.getInt("id")).setContent(rs.getString("content")).build()); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     

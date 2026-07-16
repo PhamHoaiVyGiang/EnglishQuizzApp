@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author admin
  */
-public class QuestionServiceDecorator extends QuestionServiceBase{
+public class QuestionServiceDecorator implements QuestionServiceBase{
      private QuestionServiceBase q;
 
     public QuestionServiceDecorator(QuestionServiceBase q) {
@@ -22,8 +22,8 @@ public class QuestionServiceDecorator extends QuestionServiceBase{
     
      
     @Override
-    public List<Questions> getQuestions() throws SQLException {
-        List<Questions> questions=this.q.getQuestions(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Questions> list() throws SQLException {
+        List<Questions> questions=this.q.list(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         ChoiceServices se= new ChoiceServices();
         for(var c : questions){
             c.setChoices(se.getChoiceByQuestionId(c.getId()));

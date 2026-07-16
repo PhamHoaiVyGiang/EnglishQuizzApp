@@ -16,31 +16,32 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 
+public class PrimaryController implements Initializable {
 
+    @FXML
+    private ComboBox<ThemeTypes> cbTheme;
 
-public class PrimaryController implements Initializable{
-    @FXML private ComboBox<ThemeTypes> cbTheme;
-    
-
-    public void mangeQuestions( ActionEvent e){
+    public void mangeQuestions(ActionEvent e) {
         MyStageSingleton.getInstance().showStage("question");
     }
-    public void practiceQuestions( ActionEvent e){
+
+    public void practiceQuestions(ActionEvent e) {
 
         MyStageSingleton.getInstance().showStage("practice");
     }
-    public void examQuestions( ActionEvent e){
 
-         MyAlertSingleton.getInstance().showMsg("[  examQuestions] comming soon");
+    public void examQuestions(ActionEvent e) {
+
+        MyStageSingleton.getInstance().showStage("exam");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       this.cbTheme.setItems(FXCollections.observableArrayList(ThemeTypes.values()));
+        this.cbTheme.setItems(FXCollections.observableArrayList(ThemeTypes.values()));
     }
-    public void changeTheme( ActionEvent e){
+
+    public void changeTheme(ActionEvent e) {
         this.cbTheme.getSelectionModel().getSelectedItem().updateTheme(this.cbTheme.getScene());
     }
-    
-    
+
 }

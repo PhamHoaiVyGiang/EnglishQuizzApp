@@ -11,6 +11,7 @@ import com.phvg.pojo.QuestionQueryBuilder;
 import com.phvg.pojo.Questions;
 
 import com.phvg.services.CategoryServices;
+import com.phvg.services.FlyweightFactory;
 import com.phvg.services.LevelServices;
 import com.phvg.services.questions.QuestionsServices;
 import com.phvg.utils.Configs;
@@ -77,25 +78,21 @@ public class QuestionsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         this.loadColumns();
-        try {
-            this.cbCates.setItems(FXCollections.observableList(Configs.cateServices.getCates()));
-            this.cbLevels.setItems(FXCollections.observableList(Configs.lvlServices.getLevels()));
-            this.cbSearchCates.setItems(FXCollections.observableList(Configs.cateServices.getCates()));
-            this.cbSearchLevels.setItems(FXCollections.observableList(Configs.lvlServices.getLevels()));
 
-        } catch (SQLException ex) {
-
-        }
+        this.cbCates.setItems(FXCollections.observableList(FlyweightFactory.getDaTa(Configs.cateServices, Configs.CATE_KEY)));
+        this.cbLevels.setItems(FXCollections.observableList(FlyweightFactory.getDaTa(Configs.lvlServices, Configs.LVL_KEY)));
+        this.cbSearchCates.setItems(FXCollections.observableList(FlyweightFactory.getDaTa(Configs.cateServices, Configs.CATE_KEY)));
+        this.cbSearchLevels.setItems(FXCollections.observableList(FlyweightFactory.getDaTa(Configs.lvlServices, Configs.LVL_KEY)));
 
         loadTableQuestions();
-        
-        this.txtKeywords.textProperty().addListener(c->{
+
+        this.txtKeywords.textProperty().addListener(c -> {
             this.loadTableQuestions();
         });
-        this.cbSearchCates.getSelectionModel().selectedItemProperty().addListener(c->{
+        this.cbSearchCates.getSelectionModel().selectedItemProperty().addListener(c -> {
             this.loadTableQuestions();
         });
-        this.cbSearchLevels.getSelectionModel().selectedItemProperty().addListener(c->{
+        this.cbSearchLevels.getSelectionModel().selectedItemProperty().addListener(c -> {
             this.loadTableQuestions();
         });
     }
@@ -155,14 +152,14 @@ public class QuestionsController implements Initializable {
     }
 
     private void loadTableQuestions() {
-        QuestionQueryBuilder query =new QuestionQueryBuilder()
+        QuestionQueryBuilder query = new QuestionQueryBuilder()
                 .withCategory(this.cbSearchCates.getSelectionModel().getSelectedItem())
                 .withKeywords(this.txtKeywords.getText()).withLevel(this.cbSearchLevels.getSelectionModel().getSelectedItem());
-    
+
         Configs.questionServices.setQuery(query);
         try {
 
-            this.tvQuestions.setItems(FXCollections.observableList(Configs.questionServices.getQuestions()));
+            this.tvQuestions.setItems(FXCollections.observableList(Configs.questionServices.list()));
         } catch (SQLException ex) {
             Logger.getLogger(QuestionsController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
